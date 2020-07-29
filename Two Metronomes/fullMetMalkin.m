@@ -1,18 +1,9 @@
 function XQ = fullMetMalkin(timestep,bet,del,mu,thet0)
 	
 	F1 = @(t,V)[V(2);
-				((1+del)*sin(V(1)) + mu*((V(1)/thet0)^2-1)*V(2)
-				- (bet/2)*sin(2*V(1))*(V(2)^2))/(bet*(cos(V(1))^2) - 1)];
-	F2 = @(t,V)-[0, ((1+del)*((bet*(cos(V(1))^2)-1)*cos(V(1))
-					+ bet*sin(V(1))*sin(2*V(1)))
-					+ mu*V(2)*(2*V(1)*(bet*(cos(V(1))^2)-1)
-					+ bet*(V(1)^2)*sin(2*V(1)))/(thet0^2)
-					+ mu*V(2)*bet*sin(2*V(1))
-					- (bet*(V(2)^2)/2)*(2*(bet*(cos(V(1))^2)-1)*cos(2*V(1))
-					+ bet*(sin(2*V(1))^2)))/((bet*(cos(V(1))^2)-1)^2);
-				1, (mu*((V(1)/thet0)^2 - 1)
-					- bet*V(2)*sin(2*V(1)))/(bet*cos(V(1)^2)-1)]
-				*V(3:4);
+				((1+del)*sin(V(1)) + mu*((V(1)/thet0)^2-1)*V(2) - (bet/2)*sin(2*V(1))*(V(2)^2))/(bet*(cos(V(1))^2) - 1)];
+	F2 = @(t,V)-[0, ((1+del)*((bet*(cos(V(1))^2)-1)*cos(V(1)) + bet*sin(V(1))*sin(2*V(1))) + mu*V(2)*(2*V(1)*(bet*(cos(V(1))^2)-1) + bet*(V(1)^2)*sin(2*V(1)))/(thet0^2) + mu*V(2)*bet*sin(2*V(1)) - (bet*(V(2)^2)/2)*(2*(bet*(cos(V(1))^2)-1)*cos(2*V(1)) + bet*(sin(2*V(1))^2)))/((bet*(cos(V(1))^2)-1)^2);
+				1, (mu*((V(1)/thet0)^2 - 1) - bet*V(2)*sin(2*V(1)))/(bet*cos(V(1)^2)-1)] * V(3:4);
 	
 	F = @(t,V)[F1(t,V(1:2)); F2(t,V)];
 	
